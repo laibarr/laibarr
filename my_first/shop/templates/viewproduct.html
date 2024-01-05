@@ -1,0 +1,68 @@
+{% extends "basic.html" %}
+
+{% block title %}{{ product.product_name }} - Product Details{% endblock title %}
+
+{% block body %}
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <img src="media/{{ product.pic }}" width="233px" height="385px">
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h5>{{ product.product_name }}</h5>
+            <p>{{ product.desc }}</p>
+            <p><b>Rs. {{ product.cost }}</b></p>
+
+                <button class="btn btn-primary my-2 ">Buy Now</button> 
+                <button class="btn btn-primary my-2">Add To Cart</button>
+        </div>
+    </div>
+    
+</div>
+{% block js %}
+<script>
+  console.log("working");
+  
+  let cart = {};
+  
+  if (localStorage.getItem("cart") == null) {
+      cart = {};
+  } else {
+      cart = JSON.parse(localStorage.getItem("cart"));
+      document.getElementById("cart").innerHTML = Object.keys(cart).length;
+  }
+  
+  $(".card").click(function(){
+      console.log("clicked");
+      var idStr = this.id.toString();
+      console.log(idStr);
+      
+      if (cart[idStr] !== undefined) {
+          cart[idStr] = cart[idStr] + 1;
+      } else {
+          cart[idStr] = 1;
+      }
+  
+      console.log(cart);
+      localStorage.setItem("cart", JSON.stringify(cart));
+  });
+  
+  $(document).ready(function() {
+    // Initialize popover
+    $('#popoverid').popover({
+      html: true,  // Enable HTML content in popover
+      content: 'Cart for your items in my shopping Cart'  // Initial content
+    });
+
+    // Set dynamic content for popover using the Bootstrap Popover API
+    $('#popoverid').on('shown.bs.popover', function() {
+      var dynamicContent = '<h5>Your dynamic HTML content here</h5>';
+      $(this).attr('data-bs-content', dynamicContent);
+    });
+  });
+  </script>
+  
+{% endblock js %}
+{% endblock body %}

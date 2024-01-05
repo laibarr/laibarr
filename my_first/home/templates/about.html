@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about</title>
+</head>
+<body>
+  <h1>enter your details below</h1>  
+  <form action="/feedback" method='post'> {% csrf_token %}
+    <textarea name="text" id="" cols="30" rows="10"></textarea>
+    <br>
+    <input type="checkbox">remove punctuation
+    <br>
+    <input type="checkbox"> for upper case
+    <br>
+    <input type="checkbox"> same line
+    <br>
+    <input type="checkbox">remove space
+
+    <button>submit</button>
+  </form>
+</body>
+</html>
